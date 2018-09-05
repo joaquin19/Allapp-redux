@@ -9,7 +9,7 @@ todo2.completado = true;
 
 const estateInicial: Todo[] = [todo1, todo2, todo3];
 
-export function TodoReducer(state = estateInicial,
+export function todoReducer(state = estateInicial,
                             action: fromTodo.Acciones): Todo[] {
 
   switch (action.type) {
@@ -17,6 +17,34 @@ export function TodoReducer(state = estateInicial,
     case fromTodo.AGREGAR_TODO:
       const todo = new Todo(action.texto);
       return [...state, todo];
+
+    case fromTodo.TOGGLE_TODO:
+      return state.map( todoEdit => {
+        if (todoEdit.id === action.id) {
+          return {
+            ...todoEdit,
+            completado: !todoEdit.completado
+          };
+        } else {
+          return todoEdit;
+        }
+
+      });
+
+    case fromTodo.EDITAR_TODO:
+      return state.map( todoEdit => {
+        if (todoEdit.id === action.id) {
+          return {
+            ...todoEdit,
+            texto: action.texto
+          };
+        } else {
+          return todoEdit;
+        }
+      });
+
+    case fromTodo.BORRAR_TODO:
+      return state.filter( todoEdit => todoEdit.id !== action.id );
 
     default:
       return state;
