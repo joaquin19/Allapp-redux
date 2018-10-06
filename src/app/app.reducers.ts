@@ -8,7 +8,7 @@ import * as fromFiltroActions from './filter/filter.action';
 
 export interface AppState {
   todos: Todo[];
-  filtro: fromFiltroActions.filtroValidos;
+  filtro: fromFiltroActions.filtrosValidos;
 }
 
 
